@@ -1,5 +1,6 @@
 
 import matplotlib.pyplot as plt
+import os
 
 def Get_RGB(x):
     return (x[0] / 255 , x[1] / 255 , x[2] / 255)
@@ -53,9 +54,9 @@ def set_fig():
     qwq.axhline(linewidth = 2 , color = Get_RGB((250 , 250 , 250))) #改线
     qwq.axvline(linewidth = 4 , color = Get_RGB((250 , 250 , 250)))
 
-def set_text():
+def set_text(name):
     plt.title(
-        "QWQ_SenLin 的练习情况" ,
+        f"{name} 的练习情况" ,
         color = 'white' , font = {'size' : 18} , loc = 'left'
     )
 
@@ -85,12 +86,14 @@ def show_data():
             color = 'white'
         )
 
-def show_fig(ty_data):
+def show_fig(ty_data , name):
     init_var(ty_data)
     set_fig()
-    set_text()
-    plt.savefig(r'C:\Users\Admin\Desktop\std.png')
+    set_text(name)
+    path = f'{os.getcwd()}/{name}.png'
+    plt.savefig(path)
     plt.show()
+    print(f'已保存在目录 {path}')
 
 if __name__ == '__main__':
     show_fig([1 , 206 , 197 , 156 , 79 , 24 , 6 , 0])
