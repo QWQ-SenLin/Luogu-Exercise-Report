@@ -9,4 +9,6 @@ $ python main.py
 随后打开即可。
 
 效果：
+
+
 ![qwq](QWQ_SenLin.png)
