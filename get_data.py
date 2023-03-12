@@ -13,8 +13,11 @@ def Get_datas(luogu_id):
     res = requests.get(url = url , headers = headers).text
     datas = json.loads(res)['currentData']
     name = datas['user']['name']
-    datas = datas['passedProblems']
-    for i in datas:
-        tmp = i['difficulty']
-        difficulty[tmp] += 1
+    try:
+        datas = datas['passedProblems']
+        for i in datas:
+            tmp = i['difficulty']
+            difficulty[tmp] += 1
+    except:
+        pass
     return (difficulty[:8] , name)
