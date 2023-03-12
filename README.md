@@ -11,4 +11,4 @@ $ python main.py
 效果：
 
 
-![qwq](https://github.com/QWQ-SenLin/Luogu-Exercise-Report/blob/master/QWQ_SenLin.png)
+![](https://github.com/QWQ-SenLin/Luogu-Exercise-Report/blob/master/QWQ_SenLin.png)
