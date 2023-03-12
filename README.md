@@ -11,4 +11,4 @@ $ python main.py
 效果：
 
 
-![qwq](QWQ_SenLin.png)
+![qwq](master/QWQ_SenLin.png)
