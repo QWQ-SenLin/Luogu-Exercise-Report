@@ -1,10 +1,11 @@
 import get_data
-import draw , os
-import circle_corner as cie
+import draw.draw as draw , os
+import draw.circle_corner as cie
+from config.config import Read
 
-# luogu_id = '000001' #luogu_id 670766
-luogu_id = '670766'
-radii = 30 # 圆角大小
+config = Read.read_config()
+luogu_id = config["Your_luogu_id"]
+radii = config["png_radii"] # 圆角大小
 
 print('正在获取数据')
 datas = get_data.Get_datas(luogu_id)

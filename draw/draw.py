@@ -1,32 +1,25 @@
 
 import matplotlib.pyplot as plt
 from matplotlib.patches import Ellipse
+from config.config import Read
 import os
 
 def Get_RGB(x):
     return (x[0] / 255 , x[1] / 255 , x[2] / 255)
 
 def init_var(ty_data):
-    global x_data , y_data , colors , fig
+    global x_data , y_data , colors , fig , background_color
+    global text_color
     plt.rcParams["font.sans-serif"] = ['SimHei']
     plt.rcParams["axes.unicode_minus"] = False
-    x_data = [
-        ' ' ,
-        '暂无评定' , '入门' , '普及-' ,
-        '普及/提高-' , '普及+/提高' , '提高+/省选-' ,
-        '省选/NOI-' , 'NOI/NOI+/CTSC'
-    ]
-    # y_data = [0 , 1 , 206 , 197 , 156 , 79 , 24 , 6 , 0]
+    config = Read.read_config()
+    background_color = config["background_color"]
+    text_color = config["text_color"]
+    x_data = [' '] + config["difficulty"]
     y_data = [0] + ty_data
-    colors = [
-        (10 , 10 , 10) ,
-        (191, 191, 191) , (254 , 76 , 97) ,
-        (243, 156, 17) , (255, 193, 22) , 
-        (82, 196, 26) , (52, 152, 219) , 
-        (157, 61, 207) , (14 , 29 , 105)
-    ]
-    fig = plt.figure(figsize = (8.2 , 4))
-    fig.patch.set_facecolor(Get_RGB((10 , 10 , 10)))
+    colors = [background_color] + config["difficulty_colors"]
+    fig = plt.figure(figsize = (config["fig_size"]["row"] , config["fig_size"]["column"]))
+    fig.patch.set_facecolor(Get_RGB((background_color)))
     fig.patch.set_alpha(1.0)
 
 def set_fig(ty_data):
@@ -44,24 +37,24 @@ def set_fig(ty_data):
     qwq.tick_params(
         axis = 'x',
         labelsize = 9, # 轴字体大小设置
-        color = 'white',    # 轴标签颜色设置  
-        labelcolor = 'white', # 轴字体颜色设置
+        color = Get_RGB(text_color),    # 轴标签颜色设置  
+        labelcolor = Get_RGB(text_color), # 轴字体颜色设置
         direction = 'in' , # 轴标签方向设置
         # family = 'smiley-sans'
     ) 
-    qwq.tick_params(axis = 'y' , color = Get_RGB((10 , 10 , 10))) 
+    qwq.tick_params(axis = 'y' , color = Get_RGB(background_color)) 
 
     y_labels = qwq.get_yticklabels()
     for i in range(len(y_labels)):
         y_labels[i].set_color(Get_RGB(colors[i]))
     
-    qwq.axhline(linewidth = 2 , color = Get_RGB((250 , 250 , 250))) #改线
-    qwq.axvline(linewidth = 4 , color = Get_RGB((250 , 250 , 250)))
+    qwq.axhline(linewidth = 2 , color = Get_RGB(text_color)) #改线
+    qwq.axvline(linewidth = 4 , color = Get_RGB(text_color))
 
 def set_text(name):
     plt.title(
         f"{name} 的练习情况" ,
-        color = 'white' , font = {'size' : 18} , loc = 'left'
+        color = Get_RGB(text_color) , font = {'size' : 18} , loc = 'left'
     )
 
     plt.text(
@@ -71,7 +64,7 @@ def set_text(name):
         ha = 'left' , #x=2.2是文字的左端位置，可选'center', 'right', 'left'
         va = 'baseline' , #y=8是文字的低端位置，可选'center', 'top', 'bottom', 'baseline', 'center_baseline'
         fontdict = dict(
-            fontsize = 12 , color = 'white' ,
+            fontsize = 12 , color = Get_RGB(text_color) ,
             weight = 'bold' , #磅值，可选'light', 'normal', 'medium', 'semibold', 'bold', 'heavy', 'black'     
             # family = 'smileay-sans'
         )#字体属性设置
@@ -87,7 +80,7 @@ def show_data():
             datas[i].get_y() ,
             f'{datas[i].get_width()}' ,
             size = 13 ,
-            color = 'white'
+            color = Get_RGB(text_color)
         )
 
 def get_sum_len():
