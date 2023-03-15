@@ -2,6 +2,7 @@ from PIL import Image , ImageDraw
 
 def circle_corner(img, radii):
     # 画圆（用于分离4个角）
+    radii = int(radii)
     circle = Image.new('L', (radii * 2, radii * 2), 0)  # 创建一个黑色背景的画布
     draw = ImageDraw.Draw(circle)
     draw.ellipse((0, 0, radii * 2, radii * 2), fill=255)  # 画白色圆形
