@@ -1,8 +1,9 @@
+import sys
 from PyQt5 import QtWidgets , QtCore , uic , QtGui
 from config.config import Read
 from qt_material import apply_stylesheet
-from main import startWork
-import sys , json
+from get_main import startWork
+import json
 
 class Window(QtWidgets.QMainWindow):
     def __init__(self) -> None:
@@ -10,12 +11,16 @@ class Window(QtWidgets.QMainWindow):
         self.config = Read.read_config()
         self.m_flag = False
         self.setWindowFlag(QtCore.Qt.FramelessWindowHint) # 隐藏边框
+        self.setWindowOpacity(1) # 设置窗口透明度
+        self.setAttribute(QtCore.Qt.WA_TranslucentBackground) # 设置窗口背景透明
         self.init_ui()
         self.clicked_Base()
+        self.setStyleSheet(qss.read())
 
     def init_ui(self):
         self.ui = uic.loadUi("ui/Qtui.ui" , self)
-        self.setWindowIcon(QtGui.QIcon('ui/icon.ico'))
+        self.ui.MainLayout.setSpacing(0)
+
         self.set_close_button()
         self.show()
 
@@ -48,6 +53,7 @@ class Window(QtWidgets.QMainWindow):
     def init_right_difficulty(self):
         difficulty = self.config['difficulty']
         self.right_widget_difficulty = QtWidgets.QWidget()
+        self.right_widget_difficulty.setObjectName("right_widget_difficulty")
         self.right_layout_difficulty = QtWidgets.QVBoxLayout()
         self.right_widget_difficulty.setLayout(self.right_layout_difficulty)
 
@@ -70,6 +76,7 @@ class Window(QtWidgets.QMainWindow):
             right_difficulty_input.addWidget(right_difficulty_input_text)
 
             right_difficulty_input_box = QtWidgets.QLineEdit(self)
+            right_difficulty_input_box.setAlignment(QtCore.Qt.AlignHCenter)
             right_difficulty_input_box.setText(qwq)
             right_difficulty_input_box.editingFinished.connect(self.update_config) #更新设置
             # print(type(QtWidgets.QLineEdit()) == type(right_difficulty_input_box))
@@ -90,6 +97,7 @@ class Window(QtWidgets.QMainWindow):
             tmp_input_lable.setFont(QtGui.QFont('得意黑' , 13 , QtGui.QFont.Black)) #设置字体颜色大小
             tmp_input_lable.setAlignment(QtCore.Qt.AlignCenter | QtCore.Qt.AlignVCenter) #居中
             tmp_input_box = QtWidgets.QDoubleSpinBox(self)
+            tmp_input_box.setAlignment(QtCore.Qt.AlignHCenter)
             tmp_input_box.setValue(qaq)
             tmp_input_box.setMaximum(l)
             tmp_input_box.setMinimum(r)
@@ -122,15 +130,18 @@ class Window(QtWidgets.QMainWindow):
             tmp_label.setFont(QtGui.QFont('得意黑' , 15 , QtGui.QFont.Black))
             tmp_label.setSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding , QtWidgets.QSizePolicy.Fixed)
             tmp_label.setAlignment(QtCore.Qt.AlignCenter | QtCore.Qt.AlignVCenter) #居中
-            tmp_input = QtWidgets.QLineEdit(self)
-            tmp_input.setText(self.config["Your_luogu_id"])
-            tmp_input.editingFinished.connect(self.update_config)
+            self.right_base_luogu_input = QtWidgets.QLineEdit(self)
+            self.right_base_luogu_input.setText(self.config["Your_luogu_id"])
+            self.right_base_luogu_input.editingFinished.connect(self.update_config)
+            self.right_base_luogu_input.setObjectName('right_luogu_input')
+            self.right_base_luogu_input.setAlignment(QtCore.Qt.AlignHCenter)
             # tmp_input.setSizePolicy(QtWidgets.QSizePolicy.Fixed , QtWidgets.QSizePolicy.Fixed)
             tmp.addWidget(tmp_label)
-            tmp.addWidget(tmp_input)
+            tmp.addWidget(self.right_base_luogu_input)
             return tmp
 
         self.right_widget_base = QtWidgets.QWidget()
+        self.right_widget_base.setObjectName("right_widget_base")
         self.right_layout_base = QtWidgets.QVBoxLayout()
         self.right_widget_base.setLayout(self.right_layout_base)
         self.right_layout_base.addStretch(2) #增加空行
@@ -191,7 +202,16 @@ class Window(QtWidgets.QMainWindow):
         with open("config/config.json" , "w" , encoding = "utf-8") as f:
             json.dump(self.config , sort_keys = True , indent = 4 , separators = (',' , ': ') , fp = f)
 
-app = QtWidgets.QApplication(sys.argv)
-apply_stylesheet(app , theme = 'light_blue.xml')
-myapp = Window()
-sys.exit(app.exec_())
+class qss():
+    def read():
+        with open("ui/qss.qss" , "r" , encoding = 'utf-8') as f:
+            return f.read()
+
+def start_window():
+    app = QtWidgets.QApplication(sys.argv)
+    # apply_stylesheet(app , theme = 'light_blue.xml')
+    myapp = Window()
+    sys.exit(app.exec_())
+
+if __name__ == "__main__":
+    start_window()

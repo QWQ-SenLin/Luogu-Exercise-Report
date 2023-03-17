@@ -1,0 +1,96 @@
+QLineEdit , QDoubleSpinBox {
+    min-height : 34px;
+    max-height : 34px;
+    font-size : 15px;
+    color : rgba(189, 189, 189, 255);
+    border-style : outset;
+    border-top-left-radius : 10px;
+    border-top-right-radius : 10px;
+    border-bottom-width : 1px;
+    border-bottom-color : rgba(189, 189, 189, 255);
+    margin-left : 4px;
+}
+
+QLineEdit:focus , QDoubleSpinBox:focus {
+    min-height : 30px;
+    max-height : 30px;
+    font-size : 12px;
+    color : rgba(0, 174, 255, 255);
+    border-style : outset;
+    border-top-left-radius : 10px;
+    border-top-right-radius : 10px;
+    border-bottom-width : 2px;
+    border-bottom-color : rgba(0, 174, 255, 255);
+    margin-left : 4px;
+}
+
+QDoubleSpinBox {
+    min-width : 100px;
+    max-width : 100px;
+}
+
+QDoubleSpinBox::up-button , QDoubleSpinBox::down-button {
+    border : none;
+}
+
+QLabel {
+    color :  rgba(100, 100, 100, 255);
+    font-family : "宋体";
+    font-size : 12px;
+}
+
+QLabel#StartLabel , QLabel#BaseLabel , QLabel#OtherLabel {
+    font-size : 20px;
+}
+
+QPushButton#BaseButton , QPushButton#ColorButton , QPushButton#DifficultyButton , QPushButton#StartButton{
+    border : none;
+    font-size : 20px;
+    color : rgba(100, 100, 100, 255);
+}
+
+QPushButton#BaseButton:hover , QPushButton#ColorButton:hover , QPushButton#DifficultyButton:hover , QPushButton#StartButton:hover{
+    border-radius : 4px;
+    border-color : rgba(0, 174, 255, 255);
+    border-style : solid;
+    border-width : 3px;
+    font-size : 20px;
+    /* background : rgb(255, 255, 255); */
+    color : rgba(0, 174, 255, 255);
+}
+
+QPushButton#BaseButton:focus , QPushButton#ColorButton:focus , QPushButton#DifficultyButton:focus , QPushButton#StartButton:focus{
+    border-radius : 4px;
+    font-size : 20px;
+    background : rgba(180, 231, 255, 255);
+    border-radius : 4px;
+    border-color : rgba(0, 174, 255, 255);
+    border-style : solid;
+    border-width : 3px;
+    color : rgba(0, 174, 255, 255);
+}
+
+QPushButton#BaseButton:pressed , QPushButton#ColorButton:pressed , QPushButton#DifficultyButton:pressed , QPushButton#StartButton:pressed{
+    border-radius : 4px;
+    font-size : 20px;
+    background : rgba(0, 174, 255, 255);
+    color : rgba(255, 255, 255, 255);
+}
+
+QWidget#right_widget_base , QWidget#right_widget_difficulty {
+    background : rgba(240, 240, 240, 255);
+    border-top : 1px solid darkGray;
+    border-bottom : 1px solid darkGray;
+    border-right : 1px solid darkGray;
+    border-top-right-radius:10px;
+    border-bottom-right-radius:10px;
+}
+
+QWidget#left_widget {
+    background : white;
+    border-top : 1px solid darkGray;
+    border-bottom : 1px solid darkGray;
+    border-right : 1px solid darkGray;
+    border-top-left-radius : 10px;
+    border-bottom-left-radius : 10px;
+}
