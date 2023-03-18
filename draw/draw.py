@@ -58,7 +58,7 @@ def set_text(name):
     )
 
     plt.text(
-        x = 180 ,#文本x轴坐标 
+        x = get_sum_len() * 1.05 ,#文本x轴坐标 
         y = 9 , #文本y轴坐标
         s = f'总 AC 数: {sum(y_data)}' , #文本内容
         ha = 'left' , #x=2.2是文字的左端位置，可选'center', 'right', 'left'

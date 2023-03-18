@@ -2,7 +2,9 @@
 
 打开 `config/congfig.json`，修改 `luogu_id`，然后保存后在 `cmd` 中输入
 ```
-$ python main.py
+$ python ui_main.py
+正在获取数据
+正在生成图片
 已保存在目录 E:\编程\python\洛谷练习报告\YourName.png
 ```
 

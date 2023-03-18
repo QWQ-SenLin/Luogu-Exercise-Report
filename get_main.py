@@ -10,7 +10,7 @@ def startWork():
 
     print('正在获取数据')
     datas = get.get_data.Get_datas(luogu_id)
-    print('正在生成图标')
+    print('正在生成图片')
     path = draw.show_fig(datas[0] , datas[1])
     cie.work(path , radii)
     os.system(path)

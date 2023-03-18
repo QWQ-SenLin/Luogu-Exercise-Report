@@ -99,8 +99,9 @@ class Window(QtWidgets.QMainWindow):
             tmp_input_box = QtWidgets.QDoubleSpinBox(self)
             tmp_input_box.setAlignment(QtCore.Qt.AlignHCenter)
             tmp_input_box.setValue(qaq)
-            tmp_input_box.setMaximum(l)
-            tmp_input_box.setMinimum(r)
+            tmp_input_box.setMinimum(l)
+            tmp_input_box.setMaximum(r)
+            tmp_input_box.editingFinished.connect(self.update_config) #更新设置
             tmp_input.addWidget(tmp_input_lable)
             tmp_input.addStretch(1)
             tmp_input.addWidget(tmp_input_box)
@@ -117,9 +118,12 @@ class Window(QtWidgets.QMainWindow):
             tmp.addStretch(5)
             tmp.addWidget(tmp_label)
             tmp.addStretch(1)
-            tmp.addLayout(init_base_fig_input("图片长：" , self.config["fig_size"]["row"] , 1 , 20))
-            tmp.addLayout(init_base_fig_input("图片宽：" , self.config["fig_size"]["column"] , 0.1 , 10))
-            tmp.addLayout(init_base_fig_input("图片圆角：" , self.config["png_radii"] , 0 , 50))
+            self.right_base_fig_row = init_base_fig_input("图片长：" , self.config["fig_size"]["row"] , 1 , 20)
+            tmp.addLayout(self.right_base_fig_row)
+            self.right_base_fig_column = init_base_fig_input("图片宽：" , self.config["fig_size"]["column"] , 0.1 , 10)
+            tmp.addLayout(self.right_base_fig_column)
+            self.right_base_fig_radii = init_base_fig_input("图片圆角：" , self.config["png_radii"] , 0 , 50)
+            tmp.addLayout(self.right_base_fig_radii)
             tmp.addStretch(5)
             return tmp
 
@@ -198,9 +202,14 @@ class Window(QtWidgets.QMainWindow):
         for i in self.right_difficulty_inputs:
             item = i.itemAt(1)
             difficulty.append(item.widget().text())
+
+        self.config["fig_size"]["column"] = float(self.right_base_fig_column.itemAt(3).widget().text())
+        self.config["fig_size"]["row"] = float(self.right_base_fig_row.itemAt(3).widget().text())
+        self.config["png_radii"] = int(float(self.right_base_fig_radii.itemAt(3).widget().text()))
         self.config["difficulty"] = difficulty
+        self.config["Your_luogu_id"] = self.right_base_luogu_input.text()
         with open("config/config.json" , "w" , encoding = "utf-8") as f:
-            json.dump(self.config , sort_keys = True , indent = 4 , separators = (',' , ': ') , fp = f)
+            json.dump(self.config , indent = 4 , separators = (',' , ': ') , fp = f , ensure_ascii = False)
 
 class qss():
     def read():
