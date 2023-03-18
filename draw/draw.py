@@ -58,9 +58,10 @@ def set_text(name):
     )
 
     plt.text(
-        x = get_sum_len() * 1.05 ,#文本x轴坐标 
+        x = get_max_x() + get_max_width() // max(y_data + [1]) * (fig_len * 0.94) , #文本x轴坐标 
         y = 9 , #文本y轴坐标
         s = f'总 AC 数: {sum(y_data)}' , #文本内容
+        horizontalalignment = 'right' , 
         ha = 'left' , #x=2.2是文字的左端位置，可选'center', 'right', 'left'
         va = 'baseline' , #y=8是文字的低端位置，可选'center', 'top', 'bottom', 'baseline', 'center_baseline'
         fontdict = dict(
@@ -93,6 +94,26 @@ def get_sum_len():
     tmp = datas[tmp2].get_x() + datas[tmp2].get_width() # 总长
     return tmp
 
+def get_max_x():
+    tmp = 0
+    tmp2 = 0
+    for i in range(1 , len(y_data)):
+        if y_data[i] > tmp:
+            tmp = y_data[i]
+            tmp2 = i
+    tmp = datas[tmp2].get_x() # 总长
+    return tmp
+
+def get_max_width():
+    tmp = 0
+    tmp2 = 0
+    for i in range(1 , len(y_data)):
+        if y_data[i] > tmp:
+            tmp = y_data[i]
+            tmp2 = i
+    tmp = datas[tmp2].get_width() # 总长
+    return tmp
+
 def rounded(ty_data):
     tmp = get_sum_len()
     for i in range(1 , len(datas)):
@@ -106,7 +127,7 @@ def show_fig(ty_data , name):
     set_fig(ty_data)
     rounded(ty_data)
     set_text(name)
-    path = f'{os.getcwd()}/{name}.png'
+    path = f'{os.getcwd()}\\images\\{name}.png'
     plt.savefig(path)
     # plt.show()
     print(f'已保存在目录 {path}')

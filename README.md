@@ -5,7 +5,7 @@
 $ python ui_main.py
 正在获取数据
 正在生成图片
-已保存在目录 E:\编程\python\洛谷练习报告\YourName.png
+已保存在目录 ...\images\YourName.png
 ```
 
 随后打开即可。
@@ -13,7 +13,7 @@ $ python ui_main.py
 效果：
 
 
-![](https://github.com/QWQ-SenLin/Luogu-Exercise-Report/blob/master/QWQ_SenLin.png)
+![](https://github.com/QWQ-SenLin/Luogu-Exercise-Report/blob/master/images/QWQ_SenLin.png)
 
 你也可以尝试改变 `config/congfig.json` 中其他的内容，以下是此文件具体的内容：
 
